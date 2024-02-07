@@ -12,6 +12,10 @@ version = "0.0.1-SNAPSHOT"
 //	sourceCompatibility = JavaVersion.VERSION_21
 //}
 
+application {
+	mainClass.set("hexlet.code.app.AppApplication")
+}
+
 repositories {
 	mavenCentral()
 }
