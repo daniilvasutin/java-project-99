@@ -1,8 +1,14 @@
 plugins {
 	java
 	application
+//	checkstyle
+	jacoco
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
+
+	id("io.freefair.lombok") version "8.3"
+	id("com.github.johnrengelman.shadow") version "8.1.1"
+	id ("com.adarshr.test-logger") version "4.0.0"
 }
 
 //java {
@@ -36,6 +42,18 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-tasks.withType<Test> {
+tasks.test {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+	dependsOn(tasks.test) // tests are required to run before generating the report
+	reports {
+		xml.required.set(true)
+		html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.9"
 }
