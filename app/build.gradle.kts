@@ -5,16 +5,16 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 }
 
-java {
-	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(21))
-	}
-}
-//work for tasks
-tasks.withType<JavaExec>().configureEach {
-	dependsOn(tasks.compileJava)
-	javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
-}
+//java {
+//	toolchain {
+//		languageVersion.set(JavaLanguageVersion.of(21))
+//	}
+//}
+////work for tasks
+//tasks.withType<JavaExec>().configureEach {
+//	dependsOn(tasks.compileJava)
+//	javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+//}
 
 group = "hexlet.code"
 version = "0.0.1-SNAPSHOT"
