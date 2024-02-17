@@ -2,6 +2,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://dpg-cl3oko1novjs73bkvekg-a:5432/pageanalyzer_6zju
+    driver-class-name: org.postgresql.Driver
     username: pageanalyzer_6zju_user
     password: 1a0KvVU9M2JEB2Jtxd3VvJmSsYrZMctN
 # END
