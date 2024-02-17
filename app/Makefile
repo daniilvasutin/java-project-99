@@ -2,7 +2,7 @@ run-dist:
 	./build/install/app/bin/app
 
 start:
-	./gradlew bootRun --args='--spring.profiles.active=production'
+	./gradlew bootRun --args='--spring.profiles.active=development'
 
 build:
 	./gradlew build
