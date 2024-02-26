@@ -33,20 +33,20 @@ public class DataInitializer implements ApplicationRunner {
 
         userRepository.save(admin);
 
-        String User2Email = "User2hexlet@example.com";
-        String User2FirstName = "User2";
-        String User2LastName = "2resu";
-        String User2password = "qwerty";
-        System.out.println("!!!PAS!!!" + User2password);
-        User User2 = new User();
-        User2.setEmail(User2Email);
-        User2.setFirstName(User2FirstName);
-        User2.setLastName(User2LastName);
-        User2.setPassword(User2password);
-        System.out.println("!!!PASENC!!!" + User2.getPassword());
-//        System.out.println(bc.matches("qwerty", admin.getPassword()));
-//        System.out.println(bc.matches("qwerty", User2.getPassword()));
-
-        userRepository.save(User2);
+//        String User2Email = "User2hexlet@example.com";
+//        String User2FirstName = "User2";
+//        String User2LastName = "2resu";
+//        String User2password = "qwerty";
+//        System.out.println("!!!PAS!!!" + User2password);
+//        User User2 = new User();
+//        User2.setEmail(User2Email);
+//        User2.setFirstName(User2FirstName);
+//        User2.setLastName(User2LastName);
+//        User2.setPassword(User2password);
+//        System.out.println("!!!PASENC!!!" + User2.getPassword());
+////        System.out.println(bc.matches("qwerty", admin.getPassword()));
+////        System.out.println(bc.matches("qwerty", User2.getPassword()));
+//
+//        userRepository.save(User2);
     }
 }
