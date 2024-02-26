@@ -15,31 +15,16 @@ public class WelcomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private Environment environment;
-
-//    @Value("${spring.profiles}")
-//    private String activeProfile;
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
     @GetMapping(path = "/welcome")
     public String index() {
         System.out.println("Current JVM version - " + System.getProperty("java.version"));
 
-        User user = new User("hello", "hello@email.ru");
-        userRepository.save(user);
-        var users = userRepository.findAll();
-//        return users.stream()
-//                .map(p -> userMapper.map(p))
-//                .toList();
-        String str = "";
-        for (final String profileName : environment.getActiveProfiles()) {
-            str += profileName;
-            System.out.println("!!! " + "Currently active profile - " + profileName + " !!!");
-        }
+        var admin = userRepository.findByEmail("hexlet@example.com").get();
 
-//        if (System.getenv().get("APP_ENV").equals("production")) {
-//
-//        }
-        return "Welcome to Spring" + " " + users.get(0).getEmail() + "profile: " + str;
+        System.out.println("Welcome to Spring" + " " + admin.getEmail() + admin.getId() + "create: " + admin.getCreateAt() + "update: "+ admin.getUpdatedAt() + "profile: " + activeProfile);
+        return "Welcome to Spring!";
     }
 }
