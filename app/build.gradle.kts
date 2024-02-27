@@ -5,9 +5,9 @@ plugins {
 	jacoco
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
-	id("com.github.ben-manes.versions") version "0.49.0"
+	id("com.github.ben-manes.versions") version "0.50.0"
 
-	id("io.freefair.lombok") version "8.3"
+	id("io.freefair.lombok") version "8.4"
 //	id("com.github.johnrengelman.shadow") version "8.1.1"
 	id ("com.adarshr.test-logger") version "4.0.0"
 }
@@ -60,9 +60,9 @@ dependencies {
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 
 	//secur
-//	implementation("org.springframework.boot:spring-boot-starter-security")
-//	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-//	testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	testImplementation("org.springframework.security:spring-security-test")
 
 
 }

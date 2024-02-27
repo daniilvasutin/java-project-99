@@ -5,11 +5,16 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+#     должен быть update, но с ним деплой пишет что пользователь с таким емейил уже существует в базе
   output:
     ansi:
       enabled: always
   profiles:
     active: development
 #    default: development
+
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
 
 
