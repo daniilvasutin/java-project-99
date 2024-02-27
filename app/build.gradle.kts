@@ -65,6 +65,10 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 
+//	compileOnly("com.fasterxml.jackson.core:jackson-databind:2.8.5")
+//	runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5")
+
+
 }
 
 tasks.test {

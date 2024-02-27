@@ -24,7 +24,7 @@ public class WelcomeController {
 
         var admin = userRepository.findByEmail("hexlet@example.com").get();
 
-        System.out.println("Welcome to Spring" + " " + admin.getEmail() + admin.getId() + "create: " + admin.getCreateAt() + "update: "+ admin.getUpdatedAt() + "profile: " + activeProfile);
+        System.out.println("Welcome to Spring" + " " + admin.getEmail() + admin.getId() + "create: " + admin.getCreatedAt() + "update: "+ admin.getUpdatedAt() + "profile: " + activeProfile);
         return "Welcome to Spring!";
     }
 }

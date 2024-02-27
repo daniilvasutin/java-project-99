@@ -14,8 +14,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -43,7 +45,7 @@ public class User implements UserDetails {
     private String passwordDigest;
 
     @CreatedDate
-    private LocalDate createAt;
+    private LocalDate createdAt;
 
     @LastModifiedDate
     private LocalDate updatedAt;

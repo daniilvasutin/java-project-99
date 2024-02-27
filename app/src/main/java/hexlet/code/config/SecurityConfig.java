@@ -41,6 +41,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Разрешаем доступ только к /api/login, чтобы аутентифицироваться и получить токен
                         .requestMatchers("/api/login").permitAll()
+                        //для работы бекэнда
+                        .requestMatchers("/api/pages/*").permitAll()
+                        .requestMatchers("/api/pages").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/index.html").permitAll()
+                        .requestMatchers("/assets/**").permitAll()
 //                        .requestMatchers("/api/users").permitAll()
 //                        .requestMatchers("/welcome").permitAll()
                         .anyRequest().authenticated())

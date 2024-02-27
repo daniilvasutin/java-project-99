@@ -10,6 +10,7 @@ import hexlet.code.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +27,14 @@ public class UserController {
 
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> show() {
+    public ResponseEntity<List<UserDTO>> show() {
         var users = userRepository.findAll();
         List<UserDTO> usersDTO = users.stream().map(user -> userMapper.map(user)).toList();
+        System.out.println(usersDTO.get(0).getCreatedAt());
 
-        return usersDTO;
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(users.size()))
+                .body(usersDTO);
     }
 
     @GetMapping(path = "/{id}")
