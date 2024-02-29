@@ -42,13 +42,13 @@ public class User implements UserDetails {
 
     @NotBlank
     @Pattern(regexp = "^.{3,}")
-    private String passwordDigest;
+    private String password;
 
     @CreatedDate
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return passwordDigest;
+        return password;
     }
 
     @Override

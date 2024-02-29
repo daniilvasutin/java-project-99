@@ -14,7 +14,7 @@ import org.mapstruct.*;
 )
 
 public abstract class UserMapper {
-    @Mapping(target = "passwordDigest", source = "password")
+//    @Mapping(target = "passwordDigest", source = "password")
     public abstract User map(UserCreateDTO userDto);
 
     public abstract UserDTO map(User user);

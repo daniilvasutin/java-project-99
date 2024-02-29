@@ -1,8 +1,11 @@
 package hexlet.code.component;
 
 import hexlet.code.model.User;
+import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
+import hexlet.code.util.TaskStatusUtil;
+import hexlet.code.util.UserUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -23,6 +26,15 @@ public class DataInitializer implements ApplicationRunner {
     @Autowired
     private CustomUserDetailsService userService;
 
+    @Autowired
+    private TaskStatusRepository taskStatusRepository;
+
+    @Autowired
+    private TaskStatusUtil taskStatusUtil;
+
+    @Autowired
+    private UserUtils userUtils;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 //        String adminEmail = "hexlet@example.com";
@@ -42,11 +54,19 @@ public class DataInitializer implements ApplicationRunner {
 //
 //        userRepository.save(admin);
 
-        var email = "hexlet@example.com";
-        var userData = new User();
-        userData.setEmail(email);
-        userData.setPasswordDigest("qwerty");
-        userService.createUser(userData);
+//        var email = "hexlet@example.com";
+//        var userData = new User();
+//        userData.setEmail(email);
+//        userData.setPassword("qwerty");
+//        userService.createUser(userData);
+
+        var admin = userUtils.createAdmin();
+        userService.createUser(admin);
+
+        var taskStatuses = taskStatusUtil.getDefaultTaskStatus();
+        taskStatuses.stream().forEach(taskStatus -> taskStatusRepository.save(taskStatus));
+
+
 
 //        String User2Email = "User2hexlet@example.com";
 //        String User2FirstName = "User2";

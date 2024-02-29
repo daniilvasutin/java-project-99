@@ -47,6 +47,8 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/index.html").permitAll()
                         .requestMatchers("/assets/**").permitAll()
+                        //разрешаем доступ ко всему для ручных тестов
+                        .requestMatchers("/**").permitAll()
 //                        .requestMatchers("/api/users").permitAll()
 //                        .requestMatchers("/welcome").permitAll()
                         .anyRequest().authenticated())

@@ -20,4 +20,12 @@ public class UserUtils {
         var email = authentication.getName();
         return userRepository.findByEmail(email).get();
     }
+
+    public User createAdmin() {
+        var admin = new User();
+        var email = "hexlet@example.com";
+        admin.setEmail(email);
+        admin.setPassword("qwerty");
+        return admin;
+    }
 }

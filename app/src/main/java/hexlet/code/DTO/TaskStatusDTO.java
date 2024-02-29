@@ -6,17 +6,13 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
-public class UserDTO {
-
+public class TaskStatusDTO {
     private long id;
-    private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String slug;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime createdAt;
 }
