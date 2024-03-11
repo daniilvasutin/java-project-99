@@ -1,6 +1,8 @@
 package hexlet.code.component;
 
+import hexlet.code.model.Task;
 import hexlet.code.model.User;
+import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
@@ -35,6 +37,9 @@ public class DataInitializer implements ApplicationRunner {
     @Autowired
     private UserUtils userUtils;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 //        String adminEmail = "hexlet@example.com";
@@ -65,6 +70,22 @@ public class DataInitializer implements ApplicationRunner {
 
         var taskStatuses = taskStatusUtil.getDefaultTaskStatus();
         taskStatuses.stream().forEach(taskStatus -> taskStatusRepository.save(taskStatus));
+
+        var task = new Task();
+        task.setName("Task 1");
+        task.setDescription("Description of task 1");
+        task.setIndex(3140);
+        task.setTaskStatus(taskStatusRepository.findBySlug("to_be_fixed").get());
+        task.setAssignee(userRepository.findByEmail("hexlet@example.com").get());
+        taskRepository.save(task);
+
+        var task2 = new Task();
+        task2.setName("Task 2");
+        task2.setDescription("Description of task 2");
+        task2.setIndex(3161);
+        task2.setTaskStatus(taskStatusRepository.findBySlug("to_review").get());
+        task2.setAssignee(userRepository.findByEmail("hexlet@example.com").get());
+        taskRepository.save(task2);
 
 
 

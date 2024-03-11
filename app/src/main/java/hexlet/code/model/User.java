@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -25,7 +26,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class User implements UserDetails {
+public class User implements UserDetails, BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -43,6 +44,9 @@ public class User implements UserDetails {
     @NotBlank
     @Pattern(regexp = "^.{3,}")
     private String password;
+
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
 
     @CreatedDate
     private LocalDateTime createdAt;

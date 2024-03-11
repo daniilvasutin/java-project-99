@@ -1,13 +1,12 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.UserCreateDTO;
-import hexlet.code.DTO.UserDTO;
-import hexlet.code.DTO.UserUpdateDTO;
+import hexlet.code.DTO.userDTO.UserCreateDTO;
+import hexlet.code.DTO.userDTO.UserDTO;
+import hexlet.code.DTO.userDTO.UserUpdateDTO;
 import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
