@@ -1,22 +1,16 @@
 package hexlet.code.DTO.taskDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import hexlet.code.model.Label;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 public class TaskDTO {
-
-//        "id": 1,
-//        "index": 3140,
-//        "createdAt": "2023-07-30",
-//        "assignee_id": 1,
-//        "title": "Task 1",
-//        "content": "Description of task 1",
-//        "status": "to_be_fixed"
 
     private Long id;
     private Integer index;
@@ -28,4 +22,7 @@ public class TaskDTO {
     private String title;
     private String content;
     private String status;
+
+    private List<Long> taskLabelIds;
+    //private List<Label> taskLabelIds; было зацикливание но работало
 }

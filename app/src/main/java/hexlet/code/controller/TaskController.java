@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     @Autowired
@@ -48,9 +48,14 @@ public class TaskController {
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDTO createTask(@RequestBody TaskCreateDTO taskCreateDTO) {
         Task task = taskMapper.map(taskCreateDTO);
-        taskRepository.save(task);
 
-        return taskMapper.map(task);
+
+//        task.setLabels(taskCreateDTO.getTaskLabelIds());
+        taskRepository.save(task);
+        var dto = taskMapper.map(task);
+
+//        return taskMapper.map(task);
+        return dto;
     }
 
     @PutMapping(path = "/{id}")

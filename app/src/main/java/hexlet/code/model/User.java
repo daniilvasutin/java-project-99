@@ -1,6 +1,7 @@
 package hexlet.code.model;
 
 //import hexlet.code.util.Encode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hexlet.code.util.Encode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -25,7 +26,6 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-@ToString
 public class User implements UserDetails, BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class User implements UserDetails, BaseEntity {
     @Pattern(regexp = "^.{3,}")
     private String password;
 
-    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.MERGE)
     private List<Task> tasks = new ArrayList<>();
 
     @CreatedDate

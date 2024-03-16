@@ -12,6 +12,10 @@ public class UserUtils {
     @Autowired
     private UserRepository userRepository;
 
+    public final static String ADMIN_EMAIL = "hexlet@example.com";
+    private final static String ADMIN_PASSWORD = "qwerty";
+
+
     public User getCurrentUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -23,9 +27,8 @@ public class UserUtils {
 
     public User createAdmin() {
         var admin = new User();
-        var email = "hexlet@example.com";
-        admin.setEmail(email);
-        admin.setPassword("qwerty");
+        admin.setEmail(ADMIN_EMAIL);
+        admin.setPassword(ADMIN_PASSWORD);
         return admin;
     }
 }

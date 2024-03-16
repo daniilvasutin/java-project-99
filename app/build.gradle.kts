@@ -64,6 +64,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	testImplementation("org.springframework.security:spring-security-test")
 
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
+
 
 //	compileOnly("com.fasterxml.jackson.core:jackson-databind:2.8.5")
 //	runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5")

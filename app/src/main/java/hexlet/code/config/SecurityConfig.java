@@ -47,8 +47,10 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/index.html").permitAll()
                         .requestMatchers("/assets/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
                         //разрешаем доступ ко всему для ручных тестов
-                        .requestMatchers("/**").permitAll()
+//                        .requestMatchers("/**").permitAll() // <----- добавить для отладки
 //                        .requestMatchers("/api/users").permitAll()
 //                        .requestMatchers("/welcome").permitAll()
                         .anyRequest().authenticated())

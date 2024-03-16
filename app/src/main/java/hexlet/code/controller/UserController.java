@@ -10,6 +10,7 @@ import hexlet.code.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
@@ -50,6 +54,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO createUser(@RequestBody UserCreateDTO createDTO) {
         User user = userMapper.map(createDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
         return userMapper.map(user);
     }
@@ -58,6 +64,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDTO updateDTO(@PathVariable long id, @RequestBody UserUpdateDTO updateDTO) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userMapper.update(updateDTO, user);
 
