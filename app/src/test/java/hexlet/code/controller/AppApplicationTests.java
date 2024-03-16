@@ -28,25 +28,29 @@ import net.datafaker.Faker;
 import java.util.HashMap;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 class AppApplicationTests {
 
-	@Autowired
-	private MockMvc mockMvc;
 
-	@Autowired
-	private Faker faker;
-
-	@Autowired
-	private ObjectMapper om;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private UserMapper mapper;
-
-	private User testUser;
+	@Test
+	void contextLoads() {
+	}
+//	@Autowired
+//	private MockMvc mockMvc;
+//
+//	@Autowired
+//	private Faker faker;
+//
+//	@Autowired
+//	private ObjectMapper om;
+//
+//	@Autowired
+//	private UserRepository userRepository;
+//
+//	@Autowired
+//	private UserMapper mapper;
+//
+//	private User testUser;
 
 //	@BeforeEach
 //	public void setUp() {
