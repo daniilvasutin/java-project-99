@@ -64,8 +64,6 @@ public class UserControllerTests {
     @Autowired
     private TestUtils testUtils;
 
-
-
     @BeforeEach
     public void setUp() {
         token = jwt().jwt(builder -> builder.subject(UserUtils.ADMIN_EMAIL));

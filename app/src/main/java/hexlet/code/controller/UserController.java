@@ -7,6 +7,7 @@ import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,56 +29,59 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<UserDTO>> show() {
-        var users = userRepository.findAll();
-        List<UserDTO> usersDTO = users.stream().map(user -> userMapper.map(user)).toList();
-        System.out.println(usersDTO.get(0).getCreatedAt());
+
+        var usersDTO = userService.getAll();
 
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(users.size()))
+                .header("X-Total-Count", String.valueOf(usersDTO.size()))
                 .body(usersDTO);
     }
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO showById(@PathVariable Long id) {
-        var user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
 
-        UserDTO userDTO = userMapper.map(user);
-
+        var userDTO = userService.findById(id);
         return userDTO;
     }
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO createUser(@RequestBody UserCreateDTO createDTO) {
-        User user = userMapper.map(createDTO);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userRepository.save(user);
-        return userMapper.map(user);
+        UserDTO userDTO = userService.create(createDTO);
+
+        return userDTO;
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO updateDTO(@PathVariable long id, @RequestBody UserUpdateDTO updateDTO) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userMapper.update(updateDTO, user);
 
-        userRepository.save(user);
+//        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//
+//        userMapper.update(updateDTO, user);
+//
+//        userRepository.save(user);
 
-        return userMapper.map(user);
+        UserDTO userDTO = userService.update(updateDTO, id);
+
+        return userDTO;
 
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@PathVariable long id) {
-        userRepository.deleteById(id);
+        userService.deleteById(id);
     }
 
 }

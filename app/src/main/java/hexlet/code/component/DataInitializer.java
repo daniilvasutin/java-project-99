@@ -79,8 +79,6 @@ public class DataInitializer implements ApplicationRunner {
         var taskStatuses = taskStatusUtil.getDefaultTaskStatus();
         taskStatuses.stream().forEach(taskStatus -> taskStatusRepository.save(taskStatus));
 
-
-
         List<Label> lables = new ArrayList<>();
         var label1 = new Label();
         label1.setName("feature");
