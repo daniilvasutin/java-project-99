@@ -2,12 +2,15 @@ package hexlet.code.service;
 
 import hexlet.code.DTO.taskDTO.TaskCreateDTO;
 import hexlet.code.DTO.taskDTO.TaskDTO;
+import hexlet.code.DTO.taskDTO.TaskParamsDTO;
 import hexlet.code.DTO.taskDTO.TaskUpdateDTO;
+import hexlet.code.Specification.TaskSpecification;
 import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +23,26 @@ public class TaskService {
     @Autowired
     private TaskMapper taskMapper;
 
-    public List<TaskDTO> getAll() {
-        List<Task> tasks = taskRepository.findAll();
+    @Autowired
+    private TaskSpecification taskSpecification;
+
+    public List<TaskDTO> getAll(TaskParamsDTO paramsDTO) {
+
+        var spec = taskSpecification.build(paramsDTO);
+        //work
+//        List<Task> tasks = taskRepository.findAll(spec);
+//        List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
+
+
+        var tasks = taskRepository.findAll(spec);
+
         List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
+
+//        List<Task> tasks = taskRepository.findAll(spec);
+//        List<TaskDTO> tasks = taskRepository.findAll(spec).stream().map(task -> taskMapper.map((Task) task)).toList();
+//        var res = tasks.
+//        List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
+        
 
         return tasksDTO;
     }

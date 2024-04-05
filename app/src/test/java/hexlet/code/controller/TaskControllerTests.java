@@ -9,6 +9,8 @@ import hexlet.code.DTO.userDTO.UserDTO;
 import hexlet.code.DTO.userDTO.UserUpdateDTO;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.mapper.TaskStatusMapper;
+import hexlet.code.model.Label;
+import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -16,10 +18,18 @@ import hexlet.code.service.CustomUserDetailsService;
 import hexlet.code.testUtils.TestUtils;
 import hexlet.code.util.TaskStatusUtil;
 import hexlet.code.util.UserUtils;
+import net.javacrumbs.jsonunit.core.Option;
 import org.assertj.core.api.Assertions;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.skyscreamer.jsonassert.Customization;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,11 +37,18 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static net.javacrumbs.jsonunit.core.Option.IGNORING_EXTRA_FIELDS;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -99,6 +116,57 @@ public class TaskControllerTests {
     }
 
     @Test
+    public void testIndexWithParams() throws Exception {
+
+        var task = testUtils.generateTask();
+        taskRepository.save(task);
+
+        var result = mockMvc.perform(get("/api/tasks?"
+                                + "titleCont=" + task.getName()
+                                + "&assigneeId=" + task.getAssignee().getId()
+                                + "&status=" + task.getTaskStatus().getSlug()
+                                + "&labelId=" + task.getLabels().iterator().next().getId()
+                )
+                        .with(token))
+                .andExpect(status().isOk())
+                .andReturn();
+
+
+
+
+        var body = result.getResponse().getContentAsString();
+
+        assertThatJson(body).inPath("[0]").and(
+                    v -> v.node("title").isEqualTo(task.getName()),
+                    v -> v.node("assignee_id").isEqualTo(task.getAssignee().getId()),
+                    v -> v.node("content").isEqualTo(task.getDescription()),
+                    v -> v.node("status").isEqualTo(task.getTaskStatus().getSlug()),
+                    v -> v.node("taskLabelIds").isEqualTo(task.getLabels().stream().map(Label::getId).collect(Collectors.toList()))
+                );
+
+
+
+
+
+
+
+
+//        var jsObArr = new JSONArray(body2);
+//        for (int i = 0; i < jsObArr.length(); i++) {
+//            var ob = jsObArr.getJSONObject(i);
+//            assertThatJson(ob).and(
+//                v -> v.node("title").isEqualTo(firstTask.getName()),
+//                v -> v.node("assignee_id").isEqualTo(firstTask.getAssignee().getId()),
+//                    v -> v.node("content").isEqualTo(firstTask.getDescription()),
+//                    v -> v.node("status").isEqualTo(firstTask.getTaskStatus().getSlug()),
+//                    v -> v.node("taskLabelIds").
+//            );
+//        }
+
+
+    }
+
+    @Test
     public void testShow() throws Exception {
 
         var task = testUtils.generateTask();
@@ -119,7 +187,7 @@ public class TaskControllerTests {
                 v -> v.node("content").isEqualTo(taskFromRepo.getDescription()),
                 v -> v.node("assignee_id").isEqualTo(taskFromRepo.getAssignee().getId()),
                 v -> v.node("status").isEqualTo(taskFromRepo.getTaskStatus().getSlug()));
-//                v -> v.node("taskLabelIds").isEqualTo(taskFromRepo.getLabels()));
+//                v -> v.node("taskLabelIds").isEqualTo(taskFromRepo.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
     }
 
     @Test

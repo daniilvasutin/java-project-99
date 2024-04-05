@@ -98,8 +98,10 @@ public class TestUtils {
 
         var taskStatus = generateTaskStatus();
         taskStatusRepository.save(taskStatus);
-
-        var labels = List.of(generateLabel());
+//второй лейб удалить
+        var labels = List.of(generateLabel(), generateLabel());
+//
+//        labels.add(generateLabel());
         labels.stream().forEach(label -> labelRepository.save(label));
 
         Task task = new Task();

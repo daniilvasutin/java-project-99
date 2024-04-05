@@ -2,7 +2,9 @@ package hexlet.code.controller;
 
 import hexlet.code.DTO.taskDTO.TaskCreateDTO;
 import hexlet.code.DTO.taskDTO.TaskDTO;
+import hexlet.code.DTO.taskDTO.TaskParamsDTO;
 import hexlet.code.DTO.taskDTO.TaskUpdateDTO;
+import hexlet.code.Specification.TaskSpecification;
 import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
@@ -30,8 +32,19 @@ public class TaskController {
 
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<TaskDTO>> show() {
-        List<TaskDTO> tasksDTO = taskService.getAll();
+    public ResponseEntity<List<TaskDTO>> show(TaskParamsDTO paramsDTO) {
+
+
+//        var spec = taskSpecification.build(paramsDTO);
+//        List<Task> tasksWithParams = taskRepository.findAll(spec);
+//        var tasksDTO = tasksWithParams.stream().map(task -> taskMapper.map(task)).toList();
+
+
+
+//                List<Task> tasks = taskRepository.findAll();
+//        List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
+
+        List<TaskDTO> tasksDTO = taskService.getAll(paramsDTO);
 
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(tasksDTO.size()))
