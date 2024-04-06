@@ -27,6 +27,10 @@ sentry {
 	authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
 }
 
+tasks.sentryBundleSourcesJava {
+	enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
+}
+
 //java {
 //	toolchain {
 //		languageVersion.set(JavaLanguageVersion.of(21))
