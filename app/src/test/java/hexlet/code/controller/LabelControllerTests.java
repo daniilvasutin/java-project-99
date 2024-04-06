@@ -25,7 +25,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,8 +68,10 @@ public class LabelControllerTests {
 
     @BeforeEach
     public void setUp() {
+
         token = jwt().jwt(builder -> builder.subject(UserUtils.ADMIN_EMAIL));
         testUtils.cleanAllRepository();
+
     }
 
     @Test
@@ -85,6 +89,7 @@ public class LabelControllerTests {
 
         var body = result.getResponse().getContentAsString();
         assertThatJson(body).isArray();
+
     }
 
     @Test
@@ -103,6 +108,7 @@ public class LabelControllerTests {
 
         assertThatJson(body).and(
                 v -> v.node("name").isEqualTo(labelFromRepo.getName()));
+
     }
 
     @Test
@@ -127,10 +133,11 @@ public class LabelControllerTests {
 
         assertThat(labelFromRepo).isNotNull();
         assertThat(labelFromRepo.getName()).isEqualTo(testLabel.getName());
+
     }
 
     @Test
-    public void testUpdate() throws Exception{
+    public void testUpdate() throws Exception {
 
         var testLabel = testUtils.generateLabel();
         labelRepository.save(testLabel);
@@ -150,6 +157,7 @@ public class LabelControllerTests {
 
         assertThat(updateLabel).isNotNull();
         assertThat(updateLabel.getName()).isEqualTo(updatedDTO.getName().get());
+
     }
 
     @Test
@@ -163,5 +171,6 @@ public class LabelControllerTests {
                 .andExpect(status().isNoContent());
 
         Assertions.assertThat(labelRepository.existsById(testLabel.getId())).isFalse();
+
     }
 }

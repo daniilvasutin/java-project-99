@@ -12,12 +12,14 @@ import java.util.Locale;
 @SpringBootApplication
 public class AppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AppApplication.class, args);
-	}
+    public static void main(String[] args) {
 
-	@Bean
-	public Faker getFaker() {
-		return new Faker(new Locale("en", "US"));
-	}
+        SpringApplication.run(AppApplication.class, args);
+    }
+
+    @Bean
+    public Faker getFaker() {
+
+        return new Faker(new Locale("en", "US"));
+    }
 }

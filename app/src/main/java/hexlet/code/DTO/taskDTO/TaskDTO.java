@@ -1,7 +1,7 @@
 package hexlet.code.DTO.taskDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import hexlet.code.model.Label;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +18,11 @@ public class TaskDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    private Long assignee_id;
+    @JsonProperty("assignee_id")
+    private Long assigneeId;
     private String title;
     private String content;
     private String status;
 
     private List<Long> taskLabelIds;
-    //private List<Label> taskLabelIds; было зацикливание но работало
 }

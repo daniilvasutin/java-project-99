@@ -3,32 +3,26 @@ package hexlet.code.controller;
 import hexlet.code.DTO.userDTO.UserCreateDTO;
 import hexlet.code.DTO.userDTO.UserDTO;
 import hexlet.code.DTO.userDTO.UserUpdateDTO;
-import hexlet.code.exeption.ResourceNotFoundException;
-import hexlet.code.mapper.UserMapper;
-import hexlet.code.model.User;
-import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
-import io.sentry.Sentry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+//import io.sentry.Sentry;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -37,11 +31,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<UserDTO>> show() {
 
-        try {
-            throw new Exception("This is a test sentry form users");
-        } catch (Exception e) {
-            Sentry.captureException(e);
-        }
+//        try {
+//            throw new Exception("This is a test sentry form users");
+//        } catch (Exception e) {
+//            Sentry.captureException(e);
+//        }
 
         var usersDTO = userService.getAll();
 
@@ -63,7 +57,6 @@ public class UserController {
     public UserDTO createUser(@RequestBody UserCreateDTO createDTO) {
 
         UserDTO userDTO = userService.create(createDTO);
-
         return userDTO;
     }
 
@@ -71,16 +64,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDTO updateDTO(@PathVariable long id, @RequestBody UserUpdateDTO updateDTO) {
 
-
-//        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//
-//        userMapper.update(updateDTO, user);
-//
-//        userRepository.save(user);
-
         UserDTO userDTO = userService.update(updateDTO, id);
-
         return userDTO;
 
     }

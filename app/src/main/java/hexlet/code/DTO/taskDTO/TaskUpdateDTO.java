@@ -15,9 +15,8 @@ public class TaskUpdateDTO {
 
     private JsonNullable<Integer> index;
 
-//    @JsonProperty("assignee_id")
-//    был assigneeId
-    private JsonNullable<Long> assignee_id;
+    @JsonProperty("assignee_id")
+    private JsonNullable<Long> assigneeId;
 
     @NotBlank
     private JsonNullable<String> title;

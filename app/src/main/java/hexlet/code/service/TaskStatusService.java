@@ -8,7 +8,6 @@ import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +21,7 @@ public class TaskStatusService {
     private TaskStatusMapper taskStatusMapper;
 
     public List<TaskStatusDTO> getAll() {
+
         var status = taskStatusRepository.findAll();
         var statuses = status.stream().map(stat -> taskStatusMapper.map(stat)).toList();
 
@@ -29,12 +29,16 @@ public class TaskStatusService {
     }
 
     public TaskStatusDTO findById(Long id) {
-        var status = taskStatusRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Status with id: " + id + " not found"));
+
+        var status = taskStatusRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Status with id: " + id + " not found"));
 
         return taskStatusMapper.map(status);
     }
 
     public TaskStatusDTO create(TaskStatusCreateDTO taskStatusCreateDTO) {
+
         TaskStatus taskStatus = taskStatusMapper.map(taskStatusCreateDTO);
         taskStatusRepository.save(taskStatus);
 
@@ -42,7 +46,10 @@ public class TaskStatusService {
     }
 
     public TaskStatusDTO update(TaskStatusUpdateDTO taskStatusUpdateDTO, Long id) {
-        var taskStatus = taskStatusRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task status with id: " + id + " not found"));
+
+        var taskStatus = taskStatusRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Task status with id: " + id + " not found"));
 
         taskStatusMapper.update(taskStatusUpdateDTO, taskStatus);
         taskStatusRepository.save(taskStatus);

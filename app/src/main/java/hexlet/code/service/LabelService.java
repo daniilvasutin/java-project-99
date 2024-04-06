@@ -8,7 +8,6 @@ import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -27,7 +26,9 @@ public class LabelService {
     }
 
     public LabelDTO findById(Long id) {
-        var label = labelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Label with id: " + id + " not found"));
+        var label = labelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Label with id: " + id + " not found"));
 
         return labelMapper.map(label);
     }
@@ -40,7 +41,9 @@ public class LabelService {
     }
 
     public LabelDTO update(LabelUpdateDTO labelUpdateDTO, Long id) {
-        var label = labelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Label with id: " + id + " not found"));
+        var label = labelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Label with id: " + id + " not found"));
 
         labelMapper.update(labelUpdateDTO, label);
         labelRepository.save(label);

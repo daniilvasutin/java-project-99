@@ -10,7 +10,6 @@ import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,26 +28,16 @@ public class TaskService {
     public List<TaskDTO> getAll(TaskParamsDTO paramsDTO) {
 
         var spec = taskSpecification.build(paramsDTO);
-        //work
-//        List<Task> tasks = taskRepository.findAll(spec);
-//        List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
-
-
         var tasks = taskRepository.findAll(spec);
 
         List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
-
-//        List<Task> tasks = taskRepository.findAll(spec);
-//        List<TaskDTO> tasks = taskRepository.findAll(spec).stream().map(task -> taskMapper.map((Task) task)).toList();
-//        var res = tasks.
-//        List<TaskDTO> tasksDTO = tasks.stream().map(task -> taskMapper.map(task)).toList();
-        
-
         return tasksDTO;
     }
 
     public TaskDTO findById(Long id) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task with id: " + id + " not found"));
+        var task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Task with id: " + id + " not found"));
 
         return taskMapper.map(task);
     }
@@ -64,7 +53,8 @@ public class TaskService {
     public TaskDTO update(TaskUpdateDTO taskUpdateDTO, Long id) {
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("task with " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "task with " + id + " not found"));
         taskMapper.update(taskUpdateDTO, task);
         taskRepository.save(task);
 

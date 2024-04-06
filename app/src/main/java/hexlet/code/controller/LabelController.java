@@ -3,32 +3,25 @@ package hexlet.code.controller;
 import hexlet.code.DTO.labelDTO.LabelCreateDTO;
 import hexlet.code.DTO.labelDTO.LabelDTO;
 import hexlet.code.DTO.labelDTO.LabelUpdateDTO;
-import hexlet.code.DTO.taskStatusDTO.TaskStatusCreateDTO;
-import hexlet.code.DTO.taskStatusDTO.TaskStatusDTO;
-import hexlet.code.DTO.taskStatusDTO.TaskStatusUpdateDTO;
-import hexlet.code.exeption.ResourceNotFoundException;
-import hexlet.code.mapper.LabelMapper;
-import hexlet.code.mapper.TaskStatusMapper;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.repository.LabelRepository;
-import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/labels")
 public class LabelController {
-
-    @Autowired
-    private LabelRepository labelRepository;
-
-    @Autowired
-    private LabelMapper labelMapper;
 
     @Autowired
     private LabelService labelService;

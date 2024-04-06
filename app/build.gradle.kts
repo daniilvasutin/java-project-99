@@ -1,7 +1,7 @@
 plugins {
 	java
 	application
-//	checkstyle
+	checkstyle
 	jacoco
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
@@ -18,9 +18,6 @@ sentry {
 	// This enables source context, allowing you to see your source
 	// code as part of your stack traces in Sentry.
 	includeSourceContext.set(true)
-
-
-
 	org.set("daniilvasutin")
 	projectName.set("java-spring-boot")
 
@@ -86,12 +83,6 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
-
-
-//	compileOnly("com.fasterxml.jackson.core:jackson-databind:2.8.5")
-//	runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5")
-
-
 }
 
 tasks.test {
@@ -109,3 +100,6 @@ tasks.jacocoTestReport {
 jacoco {
 	toolVersion = "0.8.9"
 }
+//checkstyle {
+//	toolVersion = "10.3.3"
+//}

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.DTO.taskStatusDTO.TaskStatusDTO;
 import hexlet.code.DTO.taskStatusDTO.TaskStatusUpdateDTO;
 import hexlet.code.mapper.TaskStatusMapper;
-import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
@@ -12,8 +11,6 @@ import hexlet.code.testUtils.TestUtils;
 import hexlet.code.util.TaskStatusUtil;
 import hexlet.code.util.UserUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -28,7 +25,10 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -63,8 +63,6 @@ public class TaskStatusControllerTests {
 
     @Autowired
     private TestUtils testUtils;
-
-
 
     @BeforeEach
     public void setUp() {
@@ -127,10 +125,11 @@ public class TaskStatusControllerTests {
         assertThat(taskStatusFromRepo).isNotNull();
         assertThat(taskStatusFromRepo.getName()).isEqualTo(testTaskStatus.getName());
         assertThat(taskStatusFromRepo.getSlug()).isEqualTo(testTaskStatus.getSlug());
+
     }
 
     @Test
-    public void testUpdate() throws Exception{
+    public void testUpdate() throws Exception {
 
         var testTaskStatus = testUtils.generateTaskStatus();
         taskStatusRepository.save(testTaskStatus);

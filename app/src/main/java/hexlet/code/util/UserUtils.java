@@ -12,8 +12,8 @@ public class UserUtils {
     @Autowired
     private UserRepository userRepository;
 
-    public final static String ADMIN_EMAIL = "hexlet@example.com";
-    private final static String ADMIN_PASSWORD = "qwerty";
+    public static final  String ADMIN_EMAIL = "hexlet@example.com";
+    public static final  String ADMIN_PASSWORD = "qwerty";
 
 
     public User getCurrentUser() {

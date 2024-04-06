@@ -1,12 +1,8 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.DTO.taskStatusDTO.TaskStatusDTO;
-import hexlet.code.DTO.taskStatusDTO.TaskStatusUpdateDTO;
-import hexlet.code.DTO.userDTO.UserCreateDTO;
 import hexlet.code.DTO.userDTO.UserDTO;
 import hexlet.code.DTO.userDTO.UserUpdateDTO;
-import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -28,8 +24,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -129,10 +127,11 @@ public class UserControllerTests {
         assertThat(userFromRepo.getLastName()).isEqualTo(user.getLastName());
         assertThat(userFromRepo.getEmail()).isEqualTo(user.getEmail());
         assertThat(userFromRepo.getPassword()).doesNotMatch(userPasswordNoEncode);
+
     }
 
     @Test
-    public void testUpdate() throws Exception{
+    public void testUpdate() throws Exception {
 
         var user = testUtils.generateUser();
         var userPasswordNoEncode = user.getPassword();

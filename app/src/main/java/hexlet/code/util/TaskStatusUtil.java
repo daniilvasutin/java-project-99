@@ -17,7 +17,7 @@ public class TaskStatusUtil {
                 createTaskStatus("Published", "published"));
     }
 
-    private TaskStatus createTaskStatus(String draft, String slug){
+    private TaskStatus createTaskStatus(String draft, String slug) {
         TaskStatus taskStatus = new TaskStatus();
 
         taskStatus.setName(draft);

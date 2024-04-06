@@ -48,26 +48,17 @@ public class TestUtils {
 
         var taskStatus = new TaskStatus();
 
-        taskStatus.setName(name.toString());
+        taskStatus.setName(name);
         taskStatus.setSlug(slug);
-
-//        taskStatusRepository.save(taskStatus);
 
         return taskStatus;
     }
-
-//    @Bean
-//    public Task generateTask() {
-//
-//    }
 
     @Bean
     public Label generateLabel() {
         var title = faker.lorem().fixedString(10);
         var label = new Label();
         label.setName(title);
-
-//        labelRepository.save(label);
 
         return label;
     }
@@ -85,8 +76,6 @@ public class TestUtils {
         user.setEmail(email);
         user.setPassword(password);
 
-//        userRepository.save(user);
-
         return user;
     }
 
@@ -98,10 +87,8 @@ public class TestUtils {
 
         var taskStatus = generateTaskStatus();
         taskStatusRepository.save(taskStatus);
-//второй лейб удалить
+        //второй лейб удалить
         var labels = List.of(generateLabel(), generateLabel());
-//
-//        labels.add(generateLabel());
         labels.stream().forEach(label -> labelRepository.save(label));
 
         Task task = new Task();

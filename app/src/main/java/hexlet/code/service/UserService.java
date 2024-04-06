@@ -31,7 +31,9 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) {
-        var user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User with id: " + id + " not found"));
         return userMapper.map(user);
     }
 
@@ -42,14 +44,15 @@ public class UserService {
 
         userRepository.save(user);
         UserDTO userDTO = userMapper.map(user);
-        
         return userDTO;
     }
 
 
     public UserDTO update(UserUpdateDTO updateDTO, long id) {
 
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User with id: " + id + " not found"));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userMapper.update(updateDTO, user);
