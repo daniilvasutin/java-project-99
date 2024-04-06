@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.sentry.Sentry;
 
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class TaskController {
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<TaskDTO>> show(TaskParamsDTO paramsDTO) {
+
+
+
+        try {
+            throw new Exception("This is a test sentry form task");
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        }
 
 
 //        var spec = taskSpecification.build(paramsDTO);

@@ -10,6 +10,21 @@ plugins {
 	id("io.freefair.lombok") version "8.4"
 //	id("com.github.johnrengelman.shadow") version "8.1.1"
 	id ("com.adarshr.test-logger") version "4.0.0"
+	id("io.sentry.jvm.gradle") version "4.4.0"
+}
+
+sentry {
+	// Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
+	// This enables source context, allowing you to see your source
+	// code as part of your stack traces in Sentry.
+	includeSourceContext.set(true)
+
+
+
+	org.set("daniilvasutin")
+	projectName.set("java-spring-boot")
+
+	authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
 }
 
 //java {
@@ -42,8 +57,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-devtools")
-//удалить
-	implementation("com.googlecode.json-simple:json-simple:1.1")
+
+	implementation("io.sentry:sentry-spring-boot-starter-jakarta:7.6.0")
 
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql:42.6.0")
