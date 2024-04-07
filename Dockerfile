@@ -16,8 +16,8 @@ ENV PATH=$PATH:$GRADLE_HOME/bin
 
 WORKDIR /
 
-COPY / .
+COPY ./ .
 
 RUN gradle installDist
 
-CMD ./build/install/app/bin/app --spring.profiles.active=production
+CMD build/install/app/bin/app --spring.profiles.active=production
