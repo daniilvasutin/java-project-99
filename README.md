@@ -29,6 +29,7 @@ Password: qwerty
 
 ## Stack
 
+
 * Java
 * Spring Boot
 * Spring Boot Security

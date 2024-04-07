@@ -1,19 +1,27 @@
 run-dist:
-	make -C run-dist
+	./build/install/app/bin/app
+
+start:
+	./gradlew bootRun --args='--spring.profiles.active=development'
 
 build:
-	make -C app build
+	./gradlew build
 
 clean:
-	make -C app clean
+	./gradlew clean
 
 test:
-	make -C app test
+	./gradlew test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
 lint:
-	make -C app lint
+	./gradlew checkstyleMain checkstyleTest
+
+start-prod:
+	./gradlew bootRun --args='--spring.profiles.active=production'
+
+build-run: build run
 
 .PHONY: build

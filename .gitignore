@@ -15,3 +15,5 @@ bin
 
 jte-classes/
 /app/node_modules/
+/node_modules/
+
