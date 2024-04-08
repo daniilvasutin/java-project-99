@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 @Getter
 @Setter
@@ -14,10 +13,10 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class UserCreateDTO {
 
     @NotBlank
-    private JsonNullable<String> firstName;
+    private String firstName;
 
     @NotBlank
-    private JsonNullable<String> lastName;
+    private String lastName;
 
     @Email
     private String email;
