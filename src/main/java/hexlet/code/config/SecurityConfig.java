@@ -53,7 +53,7 @@ public class SecurityConfig {
                         //разрешаем доступ ко всему для ручных тестов
 //                        .requestMatchers("/**").permitAll() // <----- добавить для отладки
 //                        .requestMatchers("/api/users").permitAll()
-//                        .requestMatchers("/welcome").permitAll()
+                        .requestMatchers("/welcome").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))
