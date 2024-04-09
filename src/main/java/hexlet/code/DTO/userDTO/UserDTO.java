@@ -3,6 +3,7 @@ package hexlet.code.DTO.userDTO;
 //import com.fasterxml.jackson.annotation.JsonFormat;
 //import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 //import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,5 +27,6 @@ public class UserDTO {
 //    @JsonDeserialize()
 //    @JsonFormat(pattern = "dd-M-yyyy")
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "en_GB")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 }
