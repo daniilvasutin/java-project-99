@@ -25,7 +25,7 @@ Username: hexlet@example.com
 Password: qwerty
 ```
 
-### [Сайт на Render.com](https://taskmanager-4jku.onrender.com/welcome)
+### [Сайт на Render.com](https://taskmanager-4jku.onrender.com/#/login)
 
 ## Stack
 
