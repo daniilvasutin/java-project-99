@@ -63,6 +63,8 @@ dependencies {
 
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql:42.6.0")
+	//чтобы работал @JsonFormat
+//	runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5")
 
 //	test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
