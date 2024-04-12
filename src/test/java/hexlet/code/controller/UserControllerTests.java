@@ -1,8 +1,8 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.DTO.userDTO.UserDTO;
-import hexlet.code.DTO.userDTO.UserUpdateDTO;
+import hexlet.code.dto.userDTO.UserDTO;
+import hexlet.code.dto.userDTO.UserUpdateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -66,6 +66,9 @@ public class UserControllerTests {
     public void setUp() {
         token = jwt().jwt(builder -> builder.subject(UserUtils.ADMIN_EMAIL));
         testUtils.cleanAllRepository();
+
+        var admin = userUtils.createAdmin();
+        userService.createUser(admin);
     }
 
     @Test
@@ -136,6 +139,7 @@ public class UserControllerTests {
         var user = testUtils.generateUser();
         var userPasswordNoEncode = user.getPassword();
         userRepository.save(user);
+        token = jwt().jwt(builder -> builder.subject(user.getEmail()));
 
         var newFirstName = "updated firstname";
         var updatedDTO = new UserUpdateDTO();
@@ -158,10 +162,48 @@ public class UserControllerTests {
     }
 
     @Test
-    public void testDestroy() throws Exception {
+    public void testUpdateAnotherUser() throws Exception {
 
         var user = testUtils.generateUser();
+        var userPasswordNoEncode = user.getPassword();
         userRepository.save(user);
+
+        var newFirstName = "updated firstname";
+        var updatedDTO = new UserUpdateDTO();
+        updatedDTO.setFirstName(JsonNullable.of(newFirstName));
+
+        var request = put("/api/users/{id}", user.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(updatedDTO))
+                .with(token);
+
+        mockMvc.perform(request).andExpect(status().isForbidden());
+
+        var userFromRepo = userRepository.findByEmail(user.getEmail()).get();
+
+        assertThat(userFromRepo).isNotNull();
+        assertThat(userFromRepo.getFirstName()).isEqualTo(user.getFirstName());
+        assertThat(userFromRepo.getLastName()).isEqualTo(user.getLastName());
+        assertThat(userFromRepo.getEmail()).isEqualTo(user.getEmail());
+    }
+
+    @Test
+    public void testDestroyAnotherUser() throws Exception {
+        var user = testUtils.generateUser();
+        userRepository.save(user);
+
+        var request = delete("/api/users/{id}", user.getId()).with(token);
+        mockMvc.perform(request)
+                .andExpect(status().isForbidden());
+
+        Assertions.assertThat(userRepository.existsById(user.getId())).isTrue();
+    }
+
+    @Test
+    public void testDestroyCurrentUser() throws Exception {
+        var user = testUtils.generateUser();
+        userRepository.save(user);
+        token = jwt().jwt(builder -> builder.subject(user.getEmail()));
 
         var request = delete("/api/users/{id}", user.getId()).with(token);
         mockMvc.perform(request)

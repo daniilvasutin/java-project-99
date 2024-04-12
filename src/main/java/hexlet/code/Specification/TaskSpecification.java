@@ -1,6 +1,6 @@
 package hexlet.code.Specification;
 
-import hexlet.code.DTO.taskDTO.TaskParamsDTO;
+import hexlet.code.dto.taskDTO.TaskParamsDTO;
 import hexlet.code.model.Task;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

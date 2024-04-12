@@ -1,5 +1,6 @@
 package hexlet.code.util;
 
+import hexlet.code.exeption.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,13 @@ public class UserUtils {
         }
         var email = authentication.getName();
         return userRepository.findByEmail(email).get();
+    }
+
+    public void checkPermission(User user) {
+        var currentUser = getCurrentUser();
+        if (!currentUser.equals(user)) {
+            throw new ForbiddenException("You can't make any changes with another user. Permission denied");
+        }
     }
 
     public User createAdmin() {

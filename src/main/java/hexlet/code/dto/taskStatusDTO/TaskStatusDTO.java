@@ -1,4 +1,4 @@
-package hexlet.code.DTO.labelDTO;
+package hexlet.code.dto.taskStatusDTO;
 
 //import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,10 +10,11 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class LabelDTO {
-    private Long id;
+public class TaskStatusDTO {
+    private long id;
     private String name;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String slug;
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 }

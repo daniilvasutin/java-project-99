@@ -1,4 +1,4 @@
-package hexlet.code.DTO.userDTO;
+package hexlet.code.dto.userDTO;
 
 //import com.fasterxml.jackson.annotation.JsonFormat;
 //import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

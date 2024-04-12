@@ -1,8 +1,8 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.DTO.labelDTO.LabelDTO;
-import hexlet.code.DTO.labelDTO.LabelUpdateDTO;
+import hexlet.code.dto.labelDTO.LabelDTO;
+import hexlet.code.dto.labelDTO.LabelUpdateDTO;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;

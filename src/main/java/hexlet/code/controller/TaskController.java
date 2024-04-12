@@ -1,9 +1,9 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.taskDTO.TaskCreateDTO;
-import hexlet.code.DTO.taskDTO.TaskDTO;
-import hexlet.code.DTO.taskDTO.TaskParamsDTO;
-import hexlet.code.DTO.taskDTO.TaskUpdateDTO;
+import hexlet.code.dto.taskDTO.TaskCreateDTO;
+import hexlet.code.dto.taskDTO.TaskDTO;
+import hexlet.code.dto.taskDTO.TaskParamsDTO;
+import hexlet.code.dto.taskDTO.TaskUpdateDTO;
 import hexlet.code.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

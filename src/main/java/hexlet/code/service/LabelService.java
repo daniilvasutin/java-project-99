@@ -1,8 +1,8 @@
 package hexlet.code.service;
 
-import hexlet.code.DTO.labelDTO.LabelCreateDTO;
-import hexlet.code.DTO.labelDTO.LabelDTO;
-import hexlet.code.DTO.labelDTO.LabelUpdateDTO;
+import hexlet.code.dto.labelDTO.LabelCreateDTO;
+import hexlet.code.dto.labelDTO.LabelDTO;
+import hexlet.code.dto.labelDTO.LabelUpdateDTO;
 import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;

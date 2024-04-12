@@ -1,12 +1,13 @@
 package hexlet.code.service;
 
-import hexlet.code.DTO.userDTO.UserCreateDTO;
-import hexlet.code.DTO.userDTO.UserDTO;
-import hexlet.code.DTO.userDTO.UserUpdateDTO;
+import hexlet.code.dto.userDTO.UserCreateDTO;
+import hexlet.code.dto.userDTO.UserDTO;
+import hexlet.code.dto.userDTO.UserUpdateDTO;
 import hexlet.code.exeption.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserUtils userUtils;
 
     public List<UserDTO> getAll() {
         var users = userRepository.findAll();
@@ -49,10 +53,11 @@ public class UserService {
 
 
     public UserDTO update(UserUpdateDTO updateDTO, long id) {
-
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User with id: " + id + " not found"));
+        userUtils.checkPermission(user);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userMapper.update(updateDTO, user);
@@ -65,6 +70,11 @@ public class UserService {
     }
 
     public void deleteById(long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User with id: " + id + " not found"));
+        userUtils.checkPermission(user);
+
         userRepository.deleteById(id);
     }
 }

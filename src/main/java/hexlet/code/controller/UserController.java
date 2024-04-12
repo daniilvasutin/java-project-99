@@ -1,9 +1,10 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.userDTO.UserCreateDTO;
-import hexlet.code.DTO.userDTO.UserDTO;
-import hexlet.code.DTO.userDTO.UserUpdateDTO;
+import hexlet.code.dto.userDTO.UserCreateDTO;
+import hexlet.code.dto.userDTO.UserDTO;
+import hexlet.code.dto.userDTO.UserUpdateDTO;
 import hexlet.code.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public class UserController {
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@RequestBody UserCreateDTO createDTO) {
+    public UserDTO createUser(@RequestBody @Valid UserCreateDTO createDTO) {
 
         UserDTO userDTO = userService.create(createDTO);
         return userDTO;
