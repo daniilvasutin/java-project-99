@@ -144,7 +144,7 @@ public class UserControllerTests {
         var newFirstName = "updated firstname";
         var updatedDTO = new UserUpdateDTO();
         updatedDTO.setFirstName(JsonNullable.of(newFirstName));
-        updatedDTO.setPassword(userPasswordNoEncode);
+//        updatedDTO.setPassword(userPasswordNoEncode);
 
 
         var request = put("/api/users/{id}", user.getId())
@@ -160,7 +160,7 @@ public class UserControllerTests {
         assertThat(userFromRepo.getFirstName()).isEqualTo(newFirstName);
         assertThat(userFromRepo.getLastName()).isEqualTo(user.getLastName());
         assertThat(userFromRepo.getEmail()).isEqualTo(user.getEmail());
-//        assertThat(userFromRepo.getPassword()).doesNotMatch(userPasswordNoEncode);
+//        assertThat(userFromRepo.getPassword()).matches(userPasswordNoEncode);
     }
 
     @Test
@@ -173,7 +173,7 @@ public class UserControllerTests {
         var newFirstName = "updated firstname";
         var updatedDTO = new UserUpdateDTO();
         updatedDTO.setFirstName(JsonNullable.of(newFirstName));
-        updatedDTO.setPassword(userPasswordNoEncode);
+//        updatedDTO.setPassword(userPasswordNoEncode);
 
         var request = put("/api/users/{id}", user.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -188,6 +188,7 @@ public class UserControllerTests {
         assertThat(userFromRepo.getFirstName()).isEqualTo(user.getFirstName());
         assertThat(userFromRepo.getLastName()).isEqualTo(user.getLastName());
         assertThat(userFromRepo.getEmail()).isEqualTo(user.getEmail());
+//        assertThat(userFromRepo.getPassword()).matches(userPasswordNoEncode);
     }
 
     @Test

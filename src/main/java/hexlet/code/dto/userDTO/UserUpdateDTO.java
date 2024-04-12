@@ -18,9 +18,9 @@ public class UserUpdateDTO {
     private JsonNullable<String> lastName;
 
     @Email
-    private String email;
+    private JsonNullable<String> email;
 
     @NotBlank
     @Pattern(regexp = "^.{3,}")
-    private String password;
+    private JsonNullable<String> password;
 }
